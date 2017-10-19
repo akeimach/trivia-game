@@ -1,6 +1,5 @@
 
 
-
 var intervalId;
 var questionIndex = 0;
 var correctAnswer = 0;
@@ -10,18 +9,9 @@ var timeRemaining;
 var timePerQuestion = 25;
 var timePerAnswer = 5;
 
-function Question(question, responseArray, answerIndex, answerSupplement, answerImage) {
-    this.question = question;
-    this.responseArray = responseArray;
-    this.answerIndex = answerIndex;
-    this.answerSupplement = answerSupplement;
-    this.answerImage = answerImage;
-}
-
-
 var questions = {
     "1": new Question("How long is the Appalachian Trail?",
-        ["4 vertical miles", "1,792 miles", "2,185 miles", "3,429 miles"],
+        ["3.6 vertical miles", "1,792 miles", "2,185 miles", "3,429 miles"],
         2, "The trail runs from Georgia to Maine, and through 14 states.",
         "assets/images/appalachian_trail.jpg"),
     "2": new Question("Which is the tallest mountain in the US?",
@@ -54,7 +44,16 @@ var questions = {
 };
 
 
-var displayTime = function(currentTime) {
+function Question(question, responseArray, answerIndex, answerSupplement, answerImage) {
+    this.question = question;
+    this.responseArray = responseArray;
+    this.answerIndex = answerIndex;
+    this.answerSupplement = answerSupplement;
+    this.answerImage = answerImage;
+}
+
+
+function displayTime(currentTime) {
     var minutes = Math.floor(currentTime / 60);
     var seconds = currentTime - (minutes * 60);
     if (seconds < 10) {
@@ -67,86 +66,79 @@ var displayTime = function(currentTime) {
       minutes = "0" + minutes;
     }
     $("#time-remaining").html(minutes + ":" + seconds);
-};
+}
 
 
-var stopClock = function() {
-    clearInterval(intervalId);
-};
-
-var runClock = function() {
+function runClock() {
     timeRemaining--;
     displayTime(timeRemaining);
     if (!timeRemaining) {
-        stopClock();
+        clearInterval(intervalId);
         getResponse(-1);
     }
-};
+}
 
-var startClock = function() {
-    stopClock();
+
+function startClock() {
+    clearInterval(intervalId);
     timeRemaining = timePerQuestion;
     displayTime(timeRemaining);
     intervalId = setInterval(runClock, 1000);
-};
+}
 
-var displayQuestion = function() {
+
+function displayQuestion() {
     clearHTML();
     $("#show-question").html(questions[questionIndex].question);
     var responses = questions[questionIndex].responseArray;
     for (var i = 0; i < responses.length; i++) {
-        $(".response-container").append("<button id=" + i + ">" + responses[i] + "</button>");
+        $("#response-container").append("<button id=" + i + ">" + responses[i] + "</button>");
     }
-};
+}
 
 
-var displayScore = function() {
-    $("#result").html("<h2>Correct answers: " + correctAnswer 
-        + "</h2><h2>Incorrect answers: " + wrongAnswer 
-        + "</h2><h2>Unanswered: " + noAnswer + "</h2>");
-};
-
-
-
-var nextQuestion = function() {
+function nextQuestion() {
     questionIndex++;
     if (questionIndex > Object.keys(questions).length) {
-        stopClock();
-        displayScore();
+        clearInterval(intervalId);
+        $("#result-container").html("<h2>Correct answers: " + correctAnswer 
+            + "</h2><h2>Incorrect answers: " + wrongAnswer 
+            + "</h2><h2>Unanswered: " + noAnswer + "</h2>");
         $("#reset-quiz").show();
         return;
     }
     displayQuestion(); // make the response buttons, wait for clicks
-    startClock(); // clear old clock, reset time, display time, set new interval
-};
+    startClock(); // clear clock, reset time, display time, set new interval
+}
+
 
 function clearHTML() {
     $("#time-remaining").empty();
     $("#show-question").empty();
-    $(".response-container").empty();
-    $("#result").empty();
+    $("#response-container").empty();
+    $("#result-container").empty();
 }
 
 
 function getResponse(input) {
     clearHTML();
     if (input == questions[questionIndex].answerIndex) {
-        $("#result").html("<h2>Correct!</h2>");
+        $("#result-container").html("<h2>Correct!</h2>");
         correctAnswer++;
     }
     else {
         if (input === -1) { // called from runClock function being out of time
-            $("#result").html("<h2>Out of time</h2>");
+            $("#result-container").html("<h2>Out of time</h2>");
             noAnswer++;
         }
         else {
-            $("#result").html("<h2>Wrong</h2>");
+            $("#result-container").html("<h2>Wrong</h2>");
             wrongAnswer++;
         }
-        $("#result").append("<h2>The correct answer was " +
+        $("#result-container").append("<h2>The correct answer was " +
             questions[questionIndex].responseArray[questions[questionIndex].answerIndex] + "</h2>");
     }
-    $("#result").append("<h2>" + questions[questionIndex].answerSupplement
+    $("#result-container").append("<h2>" + questions[questionIndex].answerSupplement
             + "</h2><img src='" + questions[questionIndex].answerImage + "' >");
     setTimeout(nextQuestion, timePerAnswer * 1000);
 }
@@ -155,6 +147,16 @@ function getResponse(input) {
 $(document).ready(function() {
 
     $("#reset-quiz").hide();
+
+    $("#start-quiz").on("click", function() {
+        $("#start-quiz").hide();
+        nextQuestion();
+    });
+
+    $("#response-container").on("click", function(event) {
+        clearInterval(intervalId);
+        getResponse(event.target.id);
+    });
 
     $("#reset-quiz").on("click", function() {
         $("#reset-quiz").hide();
@@ -166,23 +168,5 @@ $(document).ready(function() {
         noAnswer = 0;
     });
 
-
-    $("#start-quiz").on("click", function() {
-        $("#start-quiz").hide();
-        nextQuestion();
-    });
-
-    $(".response-container").on("click", function(event) {
-        stopClock();
-        getResponse(event.target.id);
-    });
-
-    
-
 });
-
-
-
-
-
 

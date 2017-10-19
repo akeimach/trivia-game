@@ -3,7 +3,7 @@
 <head>
     <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
-    <!-- <link rel="shortcut icon" type="image/png" href="assets/images/"/> -->
+    <link rel="shortcut icon" type="image/png" href="assets/images/mountain-icon.png"/>
     <title>National Park Trivia</title>
 </head>
 <body>
@@ -13,16 +13,18 @@
     </header>
 
     <section class="flex-container">
-        <h3 id="time-remaining"></h3>
+
+        <button id="start-quiz">Start Trivia</button>
+
+        <button id="reset-quiz">Reset Game</button>
+
+        <h2 id="time-remaining"></h2>
 
         <h2 id="show-question"></h2>
 
-        <button id="start-quiz">Start Trivia</button>
-        <button id="reset-quiz">Reset Game</button>
+        <div id="response-container"></div>
 
-        <div class="response-container"></div>
-
-        <div id="result"></div>
+        <div id="result-container"></div>
         
     </section>
 
