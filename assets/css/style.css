@@ -1,0 +1,41 @@
+
+body {
+    background-image: url('../images/glen-canyon.jpg');
+    background-size: cover;
+}
+
+h1, h2, h3 {
+    font-family: 'Arial','Helvetica Neue',Helvetica,sans-serif;
+    padding: 20px;
+}
+
+h1 {
+    font-size: 30px;
+}
+
+h2 {
+    font-size: 26px;
+}
+
+h3 {
+    font-size: 20px;
+}
+
+button {
+    font-family: 'Arial','Helvetica Neue',Helvetica,sans-serif;
+    font-size: 18px;
+    width: 120px;
+    padding: 5px;
+    margin: 10px;
+}
+
+.flex-container, header {
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+}
+
+img {
+    width: 400px;
+
+}
