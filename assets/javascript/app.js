@@ -10,9 +10,9 @@ var timeRemaining;
 var timePerQuestion = 25;
 var timePerAnswer = 5;
 
-function Question(question, answerArray, answerIndex, answerSupplement, answerImage) {
+function Question(question, responseArray, answerIndex, answerSupplement, answerImage) {
     this.question = question;
-    this.answerArray = answerArray;
+    this.responseArray = responseArray;
     this.answerIndex = answerIndex;
     this.answerSupplement = answerSupplement;
     this.answerImage = answerImage;
@@ -93,7 +93,7 @@ var startClock = function() {
 var displayQuestion = function() {
     clearHTML();
     $("#show-question").html(questions[questionIndex].question);
-    var responses = questions[questionIndex].answerArray;
+    var responses = questions[questionIndex].responseArray;
     for (var i = 0; i < responses.length; i++) {
         $(".response-container").append("<button id=" + i + ">" + responses[i] + "</button>");
     }
@@ -143,6 +143,8 @@ function getResponse(input) {
             $("#result").html("<h2>Wrong</h2>");
             wrongAnswer++;
         }
+        $("#result").append("<h2>The correct answer was " +
+            questions[questionIndex].responseArray[questions[questionIndex].answerIndex] + "</h2>");
     }
     $("#result").append("<h2>" + questions[questionIndex].answerSupplement
             + "</h2><img src='" + questions[questionIndex].answerImage + "' >");
