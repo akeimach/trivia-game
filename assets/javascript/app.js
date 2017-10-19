@@ -7,8 +7,8 @@ var correctAnswer = 0;
 var wrongAnswer = 0;
 var noAnswer = 0;
 var timeRemaining;
-var timePerQuestion = 5;
-var timePerAnswer = 2;
+var timePerQuestion = 25;
+var timePerAnswer = 5;
 
 function Question(question, answerArray, answerIndex, answerSupplement, answerImage) {
     this.question = question;
