@@ -8,6 +8,7 @@ var wrongAnswer = 0;
 var noAnswer = 0;
 var timeRemaining;
 var timePerQuestion = 5;
+var timePerAnswer = 2;
 
 function Question(question, answerArray, answerIndex, answerSupplement, answerImage) {
     this.question = question;
@@ -112,6 +113,7 @@ var nextQuestion = function() {
     if (questionIndex > Object.keys(questions).length) {
         stopClock();
         displayScore();
+        $("#reset-quiz").show();
         return;
     }
     displayQuestion(); // make the response buttons, wait for clicks
@@ -144,13 +146,24 @@ function getResponse(input) {
     }
     $("#result").append("<h2>" + questions[questionIndex].answerSupplement
             + "</h2><img src='" + questions[questionIndex].answerImage + "' >");
-    setTimeout(nextQuestion, 5000);
+    setTimeout(nextQuestion, timePerAnswer * 1000);
 }
 
 
 $(document).ready(function() {
 
     $("#reset-quiz").hide();
+
+    $("#reset-quiz").on("click", function() {
+        $("#reset-quiz").hide();
+        $("#start-quiz").show();
+        clearHTML();
+        questionIndex = 0;
+        correctAnswer = 0;
+        wrongAnswer = 0;
+        noAnswer = 0;
+    });
+
 
     $("#start-quiz").on("click", function() {
         $("#start-quiz").hide();
