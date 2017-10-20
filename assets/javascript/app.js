@@ -7,40 +7,40 @@ var wrongAnswer = 0;
 var noAnswer = 0;
 var timeRemaining;
 var timePerQuestion = 25;
-var timePerAnswer = 5;
+var timePerAnswer = 6;
 
 var questions = {
     "1": new Question("How long is the Appalachian Trail?",
         ["3.6 vertical miles", "1,792 miles", "2,185 miles", "3,429 miles"],
         2, "The trail runs from Georgia to Maine, and through 14 states.",
-        "assets/images/appalachian_trail.jpg"),
+        "assets/images/appalachian_trail.gif"),
     "2": new Question("Which is the tallest mountain in the US?",
         ["Mauna Kea", "Mt Everest", "Mt Shasta", "Denali"],
         3, "Denali is 20,320 feet tall and located in Denali National Park and Preserve, Alaska",
-        "assets/images/denali.jpg"),
+        "assets/images/denali.gif"),
     "3": new Question("How many national parks are in the US?",
         ["59", "45", "74", "23"],
         0, "There are 59! Try and see them all!",
-        "assets/images/national_parks.jpg"),
+        "assets/images/national-parks.gif"),
     "4": new Question("Who is General Sherman?",
         ["Retired National Park activist", "An enormous sequoia tree", 
-            "Mini horse living in Yellowstone", "The name found on an abandoned cabin in Arches"],
+            "Mini horse living in Yellowstone", "The owner of a historical cabin"],
         1, "General Sherman is the largest known living single stem tree on Earth",
-        "assets/images/general_sherman.jpg"),
+        "assets/images/general_sherman.gif"),
     "5": new Question("The longest cave system is located in which state?", 
         ["Kentucky", "New Mexico", "Tennessee", "Virginia"], 
         0, "Mammoth Caves has 3454 miles mapped, and more to come!",
-        "assets/images/mammoth_caves.jpg"),
+        "assets/images/mammoth-caves.gif"),
     "6": new Question("Which park is the largest?", 
         ["Glacier National Park", "Yosemite National Park", "Badlands National Park",
             "Wrangell-St. Elias National Park"],
         3, "It covers three climate zones and an area larger than Switzerland",
-        "assets/images/wrangell-st_elias.jpg"),
+        "assets/images/wrangell-st_elias.gif"),
     "7": new Question("Which National Park is the youngest?",
         ["Grand Teton National Park", "Acadia National Park", "Pinnacles National Park",
             "Yellowstone National Park"],
-        2, "Pinnacles National Park was established in January 2013.",
-        "assets/images/pinnacles.jpg")
+        2, "Pinnacles National Park was established in California in January 2013.",
+        "assets/images/pinnacles.gif")
 };
 
 
